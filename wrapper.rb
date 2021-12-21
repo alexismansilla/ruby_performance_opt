@@ -27,12 +27,13 @@ def measure(&block)
   gc_stat_after = GC.stat
   memory_after = `ps -o rss= -p #{Process.pid}`.to_i/1024
   
-   puts(
-     {
-      RUBY_VERSION => {
-        gc: no_gc ? 'disabled' : 'enabled',
-        time: time.round(2),
-        gc_count: gc_stat_after[:count] - gc_stat_before[:count], memory: "%d MB" % (memory_after - memory_before)
-      } 
-     }.to_json)
+  puts({
+   RUBY_VERSION => {
+      gc: no_gc ? 'disabled' : 'enabled',
+      time: time.round(2),
+      gc_count: gc_stat_after[:count] - gc_stat_before[:count],
+      memory: "%d MB" % (memory_after - memory_before)
+    } 
+   }.to_json
+  )
 end
